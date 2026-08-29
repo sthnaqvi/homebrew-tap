@@ -14,7 +14,7 @@ class Pidlens < Formula
   desc "Everything macOS knows about a running process, in one readable report"
   homepage "https://github.com/sthnaqvi/pidlens"
   url "https://github.com/sthnaqvi/pidlens/archive/refs/tags/v0.1.0.tar.gz"
-  sha256 "8c69914fe3251840d81086b1391cec19f9d508f76dc9ab9972fc6d46aac9fc7b"
+  sha256 "80253c13412a0e78a07f8571d0785365573c2fe1fafb1c1498f9aa77f4720187"
   license "MIT"
   head "https://github.com/sthnaqvi/pidlens.git", branch: "main"
 
@@ -23,7 +23,6 @@ class Pidlens < Formula
 
   def install
     virtualenv_install_with_resources
-    generate_completions_from_executable(bin/"pidlens", shell_parameter_format: :none) if false
     man1.install "docs/man/pidlens.1"
   end
 
