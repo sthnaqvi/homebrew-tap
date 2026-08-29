@@ -1,0 +1,43 @@
+name: Formulae
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    - cron: "0 6 1 * *"   # monthly, to catch upstream rot
+  workflow_dispatch:
+
+jobs:
+  audit:
+    name: audit and install
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: homebrew-tap
+
+      - name: Tap this checkout
+        run: |
+          set -eux
+          tap_dir="$(brew --repository)/Library/Taps/sthnaqvi/homebrew-tap"
+          mkdir -p "$(dirname "$tap_dir")"
+          ln -s "$GITHUB_WORKSPACE/homebrew-tap" "$tap_dir"
+          brew tap-info sthnaqvi/tap
+
+      - name: Audit every formula
+        run: |
+          set -eux
+          for formula in homebrew-tap/Formula/*.rb; do
+            name="$(basename "$formula" .rb)"
+            brew audit --strict --online "sthnaqvi/tap/$name"
+          done
+
+      - name: Install and test every formula
+        run: |
+          set -eux
+          for formula in homebrew-tap/Formula/*.rb; do
+            name="$(basename "$formula" .rb)"
+            brew install --build-from-source "sthnaqvi/tap/$name"
+            brew test "sthnaqvi/tap/$name"
+          done
