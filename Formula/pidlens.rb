@@ -13,8 +13,8 @@ class Pidlens < Formula
 
   desc "Everything macOS knows about a running process, in one readable report"
   homepage "https://github.com/sthnaqvi/pidlens"
-  url "https://github.com/sthnaqvi/pidlens/archive/refs/tags/v0.1.2.tar.gz"
-  sha256 "59ff1293901372d0f8f242e7a8b19a27c9424a2cd4186455c8e791ce7f904e94"
+  url "https://github.com/sthnaqvi/pidlens/archive/refs/tags/v0.1.3.tar.gz"
+  sha256 "5776347c39c9fce4f0f5a6328c596cefa2f4ba9898e1f9ce1b54ffbc60bdfdad"
   license "MIT"
   head "https://github.com/sthnaqvi/pidlens.git", branch: "main"
 
